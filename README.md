@@ -2,18 +2,12 @@
 
 Um projeto educacional que demonstra a implementação de **autenticação multifator (MFA)** em uma aplicação web Flask, incluindo login, registro de usuários e um dashboard interativo com estatísticas de uso.
 
-## 📋 Sumário
+## 🔗 Links Rápidos
 
-- [Visão Geral](#visão-geral)
-- [Tecnologias Utilizadas](#-tecnologias-utilizadas)
-- [Estrutura do Projeto](#-estrutura-do-projeto)
-- [Instalação e Configuração](#-instalação-e-configuração)
-- [Como Usar](#-como-usar)
-- [Funcionalidades Principais](#-funcionalidades-principais)
-- [Fluxo de Autenticação](#-fluxo-de-autenticação)
-- [Deploy na Render](#-deploy-na-render)
-- [Notas Importantes](#-notas-importantes)
-
+| Tipo | Link |
+| 
+| **Deploy no Render** Acessar Aplicação `https://flask-mfa-zc12.onrender.com` |
+| **Repositório GitHub** | `https://github.com/edsonsantana1/Flask-MFA.git` |
 
 ---
 
@@ -26,7 +20,7 @@ Este projeto demonstra uma aplicação web completa em **Flask** com funcionalid
 A aplicação oferece as seguintes funcionalidades:
 
 | Funcionalidade | Descrição |
-| :--- | :--- |
+| 
 | **Autenticação de Usuário** | Sistema de login e registro com validação de credenciais |
 | **MFA com TOTP** | Autenticação multifator usando Google Authenticator ou Microsoft Authenticator |
 | **QR Code Dinâmico** | Geração automática de QR Code para configuração do MFA |
@@ -35,8 +29,6 @@ A aplicação oferece as seguintes funcionalidades:
 | **Design Responsivo** | Interface construída com Bootstrap para funcionar em todos os dispositivos |
 | **Pronto para Deploy** | Configuração incluída para deploy na plataforma Render |
 
-> ⚠️ **Aviso Importante**: Os usuários são armazenados em memória (estrutura de dicionário Python) apenas para fins didáticos. Para uma aplicação em produção, é essencial substituir este armazenamento por um banco de dados robusto como PostgreSQL, MongoDB ou MySQL.
-
 ---
 
 ## 🧰 Tecnologias Utilizadas
@@ -44,7 +36,7 @@ A aplicação oferece as seguintes funcionalidades:
 A aplicação foi construída utilizando as seguintes tecnologias e bibliotecas:
 
 | Tecnologia | Versão | Propósito |
-| :--- | :--- | :--- |
+| 
 | **Python** | 3.8+ | Linguagem de programação |
 | **Flask** | 2.0+ | Framework web |
 | **Jinja2** | Integrado | Motor de templates HTML |
@@ -112,7 +104,7 @@ Siga os passos abaixo para configurar o projeto em seu ambiente local:
 **1. Clone o repositório** (ou extraia os arquivos):
 
 ```bash
-git clone https://github.com/seu-usuario/flask_mfa_render_v2.git
+git clone https://github.com/edsonsantana1/Flask-MFA.git
 cd flask_mfa_render_v2
 ```
 
@@ -210,7 +202,7 @@ Após a verificação bem-sucedida, você terá acesso ao dashboard com estatís
 Para testar rapidamente a aplicação sem criar uma nova conta, use as seguintes credenciais:
 
 | Campo | Valor |
-| :--- | :--- |
+| 
 | **Usuário** | `demo` |
 | **Senha** | `password` |
 
@@ -334,107 +326,5 @@ O diagrama abaixo ilustra o fluxo completo de autenticação na aplicação:
          └────────────────────────┘
 ```
 
----
-
-## 🌐 Deploy na Render
-
-A aplicação está pronta para deploy automático na plataforma **Render.com**. Siga os passos abaixo:
-
-### Preparação para Deploy
-
-**1. Crie uma conta na Render** (se ainda não tiver):
-
-Acesse [render.com](https://render.com) e crie uma conta gratuita ou paga.
-
-**2. Conecte seu repositório Git**:
-
-- Faça push do seu código para um repositório GitHub, GitLab ou Bitbucket
-- Autorize a Render a acessar seu repositório
-
-**3. Crie um novo Web Service**:
-
-- Clique em "New +" no dashboard da Render
-- Selecione "Web Service"
-- Conecte seu repositório
-- Escolha a branch (geralmente `main` ou `master`)
-
-### Configuração de Variáveis de Ambiente
-
-Na seção "Environment" do seu Web Service na Render, adicione as seguintes variáveis:
-
-| Variável | Valor | Descrição |
-| :--- | :--- | :--- |
-| `APP_SECRET` | `sua_chave_secreta_forte` | Chave secreta para sessões Flask |
-| `FLASK_ENV` | `production` | Ambiente de execução |
-| `PYTHON_VERSION` | `3.11.0` | Versão do Python (opcional) |
-
-### Arquivo render.yaml
-
-O arquivo `render.yaml` já está configurado com as seguintes especificações:
-
-```yaml
-services:
-  - type: web
-    name: flask-mfa-app
-    env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
-    envVars:
-      - key: APP_SECRET
-        scope: run
-        value: ${APP_SECRET}
-      - key: FLASK_ENV
-        scope: run
-        value: production
-```
-
-### Deploy Automático
-
-Após a configuração inicial, qualquer push para a branch principal acionará um deploy automático. A Render executará:
-
-1. Instalação de dependências (`pip install -r requirements.txt`)
-2. Inicialização da aplicação com gunicorn
-3. Exposição na URL pública fornecida pela Render
-
----
-
-## 📝 Notas Importantes
-
-### Armazenamento de Dados
-
-**⚠️ Aviso Crítico**: A aplicação atual armazena dados de usuários em memória (estrutura de dicionário Python). Isso significa que:
-
-- Os dados são perdidos quando a aplicação é reiniciada
-- Não é adequado para produção
-- Não oferece persistência de dados
-
-**Para Produção**: Substitua o armazenamento em memória por um banco de dados como:
-
-- **PostgreSQL**: Recomendado para aplicações robustas
-- **MongoDB**: Bom para dados semi-estruturados
-- **MySQL**: Alternativa tradicional
-- **SQLite**: Adequado para aplicações pequenas
-
-### Segurança
-
-A aplicação implementa várias medidas de segurança, mas para produção, considere adicionar:
-
-- **Rate Limiting**: Limitar tentativas de login para prevenir força bruta
-- **HTTPS**: Usar certificados SSL/TLS (Render fornece automaticamente)
-- **CSRF Protection**: Adicionar tokens CSRF aos formulários
-- **Password Hashing**: Usar bcrypt ou Argon2 para hash de senhas
-- **Session Timeout**: Expiração automática de sessões inativas
-- **Logging de Segurança**: Registrar tentativas de acesso suspeitas
-
-### Chave Secreta (APP_SECRET)
-
-A variável `APP_SECRET` é crítica para a segurança da aplicação:
-
-- Use uma chave forte com pelo menos 32 caracteres
-- Nunca compartilhe a chave com terceiros
-- Altere a chave regularmente
-- Nunca commite a chave no repositório (use variáveis de ambiente)
 
 
-**Desenvolvido com ❤️ para fins educacionais**
