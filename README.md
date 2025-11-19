@@ -137,20 +137,6 @@ venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
-**5. Configure a variável de ambiente para a chave secreta**:
-
-No **macOS/Linux**:
-```bash
-export APP_SECRET='sua_chave_secreta_muito_segura_aqui'
-```
-
-No **Windows** (PowerShell):
-```powershell
-$env:APP_SECRET='sua_chave_secreta_muito_segura_aqui'
-```
-
-> **Dica de Segurança**: Use uma chave secreta forte com pelo menos 32 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.
-
 **6. Execute a aplicação**:
 
 ```bash
